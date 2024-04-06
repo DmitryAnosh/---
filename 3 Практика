@@ -1,0 +1,181 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Content Switcher',
+      theme: ThemeData(
+        primarySwatch: Colors.red,
+      ),
+      home: ContentSwitcher(),
+    );
+  }
+}
+
+class ContentSwitcher extends StatefulWidget {
+  @override
+  _ContentSwitcherState createState() => _ContentSwitcherState();
+}
+
+class _ContentSwitcherState extends State<ContentSwitcher> {
+  int _currentIndex = 0;
+
+  final List<Widget> _screens = [
+    Screen1(),
+    Screen2(),
+    Screen3(),
+    Screen4(),
+    Screen5(),
+  ];
+
+  void _changeScreen(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Content Switcher'),
+      ),
+      body: _screens[_currentIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.red,
+        currentIndex: _currentIndex,
+        onTap: _changeScreen,
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Screen 1',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search),
+            label: 'Screen 2',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.favorite),
+            label: 'Screen 3',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.shopping_cart),
+            label: 'Screen 4',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Screen 5',
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class Screen1 extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            'Топ 5 смешных квадратов',
+            style: TextStyle(fontSize: 24),
+          ),
+          SizedBox(height: 20),
+          ElevatedButton(
+            onPressed: () {
+              // Add functionality here
+            },
+            child: Text('Поехали'),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class Screen2 extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Container(
+        width: 200,
+        height: 200,
+        color: Colors.black,
+        child: Center(
+          child: Text(
+            'Квадрат малевича))',
+            style: TextStyle(fontSize: 24, color: Colors.white),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class Screen3 extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            'Кислотный квадрат',
+            style: TextStyle(fontSize: 24),
+          ),
+          SizedBox(height: 20),
+          Container(
+            width: 150,
+            height: 150,
+            color: Colors.green,
+            child: Center(
+              child: Text(
+                'МММ, ЛИМОННАЯ КИСЛОТА))))',
+                style: TextStyle(fontSize: 18, color: Colors.black),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class Screen4 extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text(
+        'Квадрат невидимка?',
+        style: TextStyle(fontSize: 24),
+      ),
+    );
+  }
+}
+
+class Screen5 extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Container(
+        width: 250,
+        height: 250,
+        color: Colors.orange,
+        child: Center(
+          child: Text(
+            'Апельсиновый квадрат',
+            style: TextStyle(fontSize: 24, color: Colors.black),
+          ),
+        ),
+      ),
+    );
+  }
+}
