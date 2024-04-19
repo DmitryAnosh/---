@@ -1,0 +1,225 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class Task {
+  final String title;
+
+  Task(this.title);
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Student Tasks',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: TasksScreen(),
+    );
+  }
+}
+
+class TasksScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Student Tasks'),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ListOnColumnScreen(),
+                  ),
+                );
+              },
+              child: Text('Column'),
+            ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ListViewScreen(),
+                  ),
+                );
+              },
+              child: Text('ListView'),
+            ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ListViewSeparatedScreen(),
+                  ),
+                );
+              },
+              child: Text('ListView Separated'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class ListOnColumnScreen extends StatefulWidget {
+  @override
+  _ListOnColumnScreenState createState() => _ListOnColumnScreenState();
+}
+
+class _ListOnColumnScreenState extends State<ListOnColumnScreen> {
+  List<Task> tasks = [];
+
+  void _addTask() {
+    setState(() {
+      tasks.add(Task('New Task ${tasks.length + 1}'));
+    });
+  }
+
+  void _removeTask(int index) {
+    setState(() {
+      tasks.removeAt(index);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Column'),
+      ),
+      body: Center(
+        child: Column(
+          children: [
+            Expanded(
+              child: ListView.builder(
+                itemCount: tasks.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return ListTile(
+                    title: Text(tasks[index].title),
+                    trailing: IconButton(
+                      icon: Icon(Icons.delete),
+                      onPressed: () => _removeTask(index),
+                    ),
+                  );
+                },
+              ),
+            ),
+            ElevatedButton(
+              onPressed: _addTask,
+              child: Text('Add Task'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class ListViewScreen extends StatefulWidget {
+  @override
+  _ListViewScreenState createState() => _ListViewScreenState();
+}
+
+class _ListViewScreenState extends State<ListViewScreen> {
+  List<Task> tasks = [];
+
+  void _addTask() {
+    setState(() {
+      tasks.add(Task('New Task ${tasks.length + 1}'));
+    });
+  }
+
+  void _removeTask(int index) {
+    setState(() {
+      tasks.removeAt(index);
+    });
+  }
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('ListView'),
+      ),
+      body: Center(
+        child: ListView.builder(
+          itemCount: tasks.length,
+          itemBuilder: (BuildContext context, int index) {
+            return ListTile(
+              title: Text(tasks[index].title),
+              trailing: IconButton(
+                icon: Icon(Icons.delete),
+                onPressed: () => _removeTask(index),
+              ),
+            );
+          },
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _addTask,
+        child: Icon(Icons.add),
+      ),
+    );
+  }
+}
+
+class ListViewSeparatedScreen extends StatefulWidget {
+  @override
+  _ListViewSeparatedScreenState createState() => _ListViewSeparatedScreenState();
+}
+
+class _ListViewSeparatedScreenState extends State<ListViewSeparatedScreen> {
+  List<Task> tasks = [];
+
+  void _addTask() {
+    setState(() {
+      tasks.add(Task('New Task ${tasks.length + 1}'));
+    });
+  }
+
+  void _removeTask(int index) {
+    setState(() {
+      tasks.removeAt(index);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('ListView Separated'),
+      ),
+      body: ListView.separated(
+        itemCount: tasks.length,
+        itemBuilder: (BuildContext context, int index) {
+          return ListTile(
+            title: Text(tasks[index].title),
+            trailing: IconButton(
+              icon: Icon(Icons.delete),
+              onPressed: () => _removeTask(index),
+            ),
+          );
+        },
+        separatorBuilder: (BuildContext context, int index) => Divider(),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _addTask,
+        child: Icon(Icons.add),
+      ),
+    );
+  }
+}
